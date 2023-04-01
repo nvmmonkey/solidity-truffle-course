@@ -14,6 +14,18 @@ contract Faucet {
 
     function addFunds() external payable {}
 
+    function justTesting() external pure returns (uint) {
+        return 2 + 2;
+
+        //pure, view function -read-only call, no gas free
+        //view - it indicateds the function will not alter the storage in any way
+        //pure - even more strict, indicating that it won't even read the storage state
+
+        //Transaction(change state), requires gas fee
+
+        //to talk to the node on the network you can make JSON-RPC http call
+
+    }
     //truffle console
     //const instance = await Faucet.deployed()
     //instance.addFunds({value:"$eth gwei"})
