@@ -2,7 +2,8 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract Faucet {
-    address[] private funders;
+    uint public numberOfFunders;
+    mapping(uint => address) private funders;
 
     //private -> can be accesible only within the smart contract
     //internal -> can be accesible within smart contract and also derived from smart contract
@@ -10,23 +11,18 @@ contract Faucet {
     receive() external payable {}
 
     function addFunds() external payable {
-        funders.push(msg.sender);
-    }
-
-    function getAllFunders() public view returns (address[] memory) {
-        return funders;
-        //use view here because the address array alters the storage state
-        //public can be call in other functions
+        uint index = numberOfFunders++;
+        funders[index] = msg.sender;
     }
 
     function getFunderAtIndex(uint8 index) external view returns (address) {
-        address[] memory _funders = getAllFunders();
-        return _funders[index];
-    }
+        return funders[index];
+    } 
 
     //truffle console
     //const instance = await Faucet.deployed()
-    //instance.addFunds({value:"$eth gwei"})
-    
+    //instance.addFunds({from:accounts[0], value:"200000000})
+    //instance.addFunds({from:accounts[1], value:"200000000})
+
     //e.g. > instance.addFunds({value:"200000", from: accounts[0})
 }
