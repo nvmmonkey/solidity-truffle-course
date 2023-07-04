@@ -3,8 +3,19 @@ pragma solidity >=0.4.22 <0.9.0;
 
 contract Faucet {
     uint public numberOfFunders;
+    address public owner;
+
     mapping(address => bool) private funders;
     mapping(uint => address) private lutFunders;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call this fuction");
+        _;
+    }
 
     modifier limitWithdraw(uint withdrawAmount) {
         require(
@@ -16,6 +27,10 @@ contract Faucet {
 
     //private -> can be accesible only within the smart contract
     //internal -> can be accesible within smart contract and also derived from smart contract
+
+    function transferOwnership(address newOwner) external onlyOwner {
+        owner = newOwner;
+    }
 
     receive() external payable {}
 
@@ -30,7 +45,17 @@ contract Faucet {
         }
     }
 
-    function withdraw(uint withdrawAmount) external limitWithdraw(withdrawAmount){
+    function test1() external onlyOwner {
+        //someting managing stuff that only admin should have access to
+    }
+
+    function test2() external onlyOwner {
+        //someting managing stuff that only admin should have access to
+    }
+
+    function withdraw(
+        uint withdrawAmount
+    ) external limitWithdraw(withdrawAmount) {
         payable(msg.sender).transfer(withdrawAmount);
     }
 
