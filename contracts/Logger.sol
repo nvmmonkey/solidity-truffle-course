@@ -19,7 +19,7 @@ abstract contract Logger {
 
     //private only constructor of the contract can call the function
     //internal constructor and  inheriting contract can call the function
-    //inside and outside call both call the function
+    //public inside and outside call both call the function
     //external can only be call outside the contract and other contract
 
     function test5() external pure returns (uint) {
