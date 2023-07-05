@@ -8,7 +8,7 @@ function App() {
     web3: null,
   });
 
-  const [account, setAccount] = useState(null);
+  const [account, setAccount] = useState(null); //Getting Account
 
   useEffect(() => {
     const loadProvider = async () => {
@@ -22,7 +22,7 @@ function App() {
         provider = window.ethereum;
 
         try {
-          await provider.enable();
+          await provider.request({ method: "eth_requestAccounts" });
         } catch {
           console.error("User denied accounts access!");
         }
@@ -45,7 +45,7 @@ function App() {
     const getAccount = async () => {
       const accounts = await web3API.web3.eth.getAccounts();
       setAccount(accounts[0]);
-    };
+    }; //Getting Account
 
     web3API.web3 && getAccount();
   }, [web3API.web3]);
