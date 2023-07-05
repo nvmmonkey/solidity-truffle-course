@@ -8,6 +8,8 @@ function App() {
     web3: null,
   });
 
+  const [account, setAccount] = useState(null);
+
   useEffect(() => {
     const loadProvider = async () => {
       //with metamask we have an access to window.ethereum & window.web3
@@ -34,20 +36,28 @@ function App() {
         web3: new Web3(provider),
         provider,
       });
-
-      console.log(window.web3);
-      console.log(window.ethereum);
     };
 
     loadProvider();
   }, []);
 
-  console.log(web3API.web3);
+  useEffect(() => {
+    const getAccount = async () => {
+      const accounts = await web3API.web3.eth.getAccounts();
+      setAccount(accounts[0]);
+    };
+
+    web3API.web3 && getAccount();
+  }, [web3API.web3]);
 
   return (
     <>
       <div className="faucet-wrapper">
         <div className="faucet">
+          <span>
+            <strong>Account: </strong>
+            <h1>{account ? account : "Not Connected"}</h1>
+          </span>
           <div className="balance-view is-size-2">
             Current Balance: <strong>10</strong>ETH
           </div>
