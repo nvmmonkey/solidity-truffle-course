@@ -3,7 +3,7 @@ import "./App.css";
 import Web3 from "web3";
 
 import detectEthereumProvider from "@metamask/detect-provider";
-import { loadContract } from "./utils/load-contracts";
+import { loadContract } from "./utils/load-contract";
 
 function App() {
   const [web3API, setWeb3API] = useState({
@@ -12,6 +12,7 @@ function App() {
     contract: null,
   });
 
+  const [balance, setBalance] = useState(null);
   const [account, setAccount] = useState(null); //Getting Account
 
   useEffect(() => {
@@ -37,6 +38,16 @@ function App() {
 
     loadProvider();
   }, []);
+
+  useEffect(() => {
+    const loadBalance = async () => {
+      const { contract, web3 } = web3API;
+      const balance = await web3.eth.getBalance(contract.address);
+      setBalance(web3.utils.fromWei(balance, "ether"));
+    };
+
+    web3API.contract && loadBalance();
+  }, [web3API]);
 
   useEffect(() => {
     const getAccount = async () => {
@@ -68,8 +79,8 @@ function App() {
               )}
             </h1>
           </div>
-          <div className="balance-view is-size-2 my-4">
-            Current Balance: <strong>10 </strong>ETH
+          <div className=" is-size-2 my-4">
+            Current Balance: <strong>{balance} </strong>ETH
           </div>
 
           <button className="button is-primary is-light mr-2">Donate</button>
