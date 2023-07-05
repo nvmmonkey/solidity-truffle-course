@@ -22,9 +22,8 @@ function App() {
       //sign messages and transactions
 
       const provider = await detectEthereumProvider();
-      const contract = await loadContract("Faucet");
+      const contract = await loadContract("Faucet", provider);
 
-      debugger;
       if (provider) {
         setWeb3API({
           web3: new Web3(provider),
