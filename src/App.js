@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Web3 from "web3";
+
 import detectEthereumProvider from "@metamask/detect-provider";
 
 function App() {
   const [web3API, setWeb3API] = useState({
     provider: null,
     web3: null,
+    contract: null,
   });
 
   const [account, setAccount] = useState(null); //Getting Account
@@ -21,7 +23,6 @@ function App() {
       const provider = await detectEthereumProvider();
 
       if (provider) {
-        provider.request({ method: "eth_requestAccounts" });
         setWeb3API({
           web3: new Web3(provider),
           provider,
@@ -47,16 +48,29 @@ function App() {
     <>
       <div className="faucet-wrapper">
         <div className="faucet">
-          <span>
+          <div className="is-flex is-align-items-center">
             <strong>Account: </strong>
-            <h1>{account ? account : "Not Connected"}</h1>
-          </span>
-          <div className="balance-view is-size-2">
-            Current Balance: <strong>10</strong>ETH
+            <h1>
+              {account ? (
+                <div>{account}</div>
+              ) : (
+                <button
+                  className="button is-small is-warning is-light ml-2"
+                  onClick={() => {
+                    web3API.provider.request({ method: "eth_requestAccounts" });
+                  }}
+                >
+                  Connect Wallet
+                </button>
+              )}
+            </h1>
+          </div>
+          <div className="balance-view is-size-2 my-4">
+            Current Balance: <strong>10 </strong>ETH
           </div>
 
-          <button className="btn mr-2">Donate</button>
-          <button className="btn">Withdraw</button>
+          <button className="button is-primary is-light mr-2">Donate</button>
+          <button className="button is-link is-light">Withdraw</button>
         </div>
       </div>
     </>
