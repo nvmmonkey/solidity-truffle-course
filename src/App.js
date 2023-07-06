@@ -21,8 +21,16 @@ function App() {
   //** ----------------- */
   //** Account Change Handler */
   //** ----------------- */
-  const setAccountListener = (provider) =>  {
-    provider.on("accountsChanged", (accounts) => setAccount(accounts[0]));
+  const setAccountListener = (provider) => {
+    provider.on("accountsChanged", (accounts) => window.location.reload());
+
+    // provider._jsonRpcConnection.events.on("notification", (payload) => {
+    //   const { method } = payload;
+
+    //   if (method === "metamask_unlockStateChanged") {
+    //     setAccount(null);
+    //   }
+    // });
   };
 
   useEffect(() => {
@@ -126,12 +134,17 @@ function App() {
           </div>
 
           <button
+            disabled={!account}
             className="button is-primary is-light mr-2"
             onClick={addFunds}
           >
             Donate 1 ETH
           </button>
-          <button className="button is-link is-light" onClick={withdraw}>
+          <button
+            disabled={!account}
+            className="button is-link is-light"
+            onClick={withdraw}
+          >
             Withdraw
           </button>
         </div>
