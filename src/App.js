@@ -16,7 +16,7 @@ function App() {
   const [account, setAccount] = useState(null); //Getting Account
   const [shouldReload, reload] = useState(false); //reload balance state
 
-  const reloadEffect = () => reload(!shouldReload);
+  const reloadEffect = useCallback(() => reload(!shouldReload), [shouldReload]);
 
   useEffect(() => {
     const loadProvider = async () => {
@@ -76,7 +76,21 @@ function App() {
     //reload to update the balance
 
     reloadEffect();
-  }, [web3API, account]);
+  }, [web3API, account, reloadEffect]);
+
+  //** ----------------- */
+  //** WITHDRAW FUNDS Handler */
+  //** ----------------- */
+
+  const withdraw = async () => {
+    const { contract, web3 } = web3API;
+    const withdrawAmount = web3.utils.toWei("0.1", "ether");
+    await contract.withdraw(withdrawAmount, {
+      from: account,
+    });
+
+    reloadEffect();
+  };
 
   return (
     <>
@@ -109,7 +123,9 @@ function App() {
           >
             Donate 1 ETH
           </button>
-          <button className="button is-link is-light">Withdraw</button>
+          <button className="button is-link is-light" onClick={withdraw}>
+            Withdraw
+          </button>
         </div>
       </div>
     </>
