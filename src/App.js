@@ -18,6 +18,13 @@ function App() {
 
   const reloadEffect = useCallback(() => reload(!shouldReload), [shouldReload]);
 
+  //** ----------------- */
+  //** Account Change Handler */
+  //** ----------------- */
+  const setAccountListener = (provider) =>  {
+    provider.on("accountsChanged", (accounts) => setAccount(accounts[0]));
+  };
+
   useEffect(() => {
     const loadProvider = async () => {
       //with metamask we have an access to window.ethereum & window.web3
@@ -29,6 +36,7 @@ function App() {
       const contract = await loadContract("Faucet", provider);
 
       if (provider) {
+        setAccountListener(provider);
         setWeb3API({
           web3: new Web3(provider),
           provider,
