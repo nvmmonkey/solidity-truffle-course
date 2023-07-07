@@ -28,7 +28,11 @@ function App() {
   //** Account Change Handler */
   //** ----------------- */
   const setAccountListener = (provider) => {
+    //Metamask function for accounts change, refresh
     provider.on("accountsChanged", (accounts) => window.location.reload());
+
+    //Metamask function for chain change, refresh
+    provider.on("chainChanged", (chain) => window.location.reload());
   };
 
   useEffect(() => {
@@ -174,7 +178,7 @@ function App() {
             className="button is-link is-light"
             onClick={withdraw}
           >
-            Withdraw
+            Withdraw 0.1 ETH
           </button>
         </div>
       </div>
