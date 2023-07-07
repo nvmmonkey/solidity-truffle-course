@@ -17,6 +17,11 @@ function App() {
   const [account, setAccount] = useState(null); //Getting Account
   const [shouldReload, reload] = useState(false); //reload balance state
 
+  //**  ------------------------------------- */
+  //** Make Sure Correct Network is connected */
+  //**  ------------------------------------- */
+  const canConnectToContract = account && web3API.contract;
+
   const reloadEffect = useCallback(() => reload(!shouldReload), [shouldReload]);
 
   //** ----------------- */
@@ -46,6 +51,7 @@ function App() {
         });
       } else {
         setWeb3API((api) => {
+          //** FIX Dependency */
           return {
             ...api,
             isProviderLoaded: true,
@@ -152,15 +158,19 @@ function App() {
             Current Balance: <strong>{balance} </strong>ETH
           </div>
 
+          {!canConnectToContract && (
+            <i className="is-block">Connect to Ganache</i>
+          )}
+
           <button
-            disabled={!account}
+            disabled={!canConnectToContract}
             className="button is-primary is-light mr-2"
             onClick={addFunds}
           >
             Donate 1 ETH
           </button>
           <button
-            disabled={!account}
+            disabled={!canConnectToContract}
             className="button is-link is-light"
             onClick={withdraw}
           >
