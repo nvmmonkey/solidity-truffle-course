@@ -187,3 +187,21 @@ function App() {
 }
 
 export default App;
+
+//** Private Key */
+//https://learnmeabitcoin.com/technical/public-key
+
+//Private key 32 bytes number
+//32d16cd9a650b615841d62a8fe3015f01a1bf179a975da55425dc5a3b23bb092
+
+//BTC & ETH use 'Secp256k1 Curve'
+//y^2 = x^3 + ax + b
+
+//=>Ellipitic Cure using PK for Public Key generation (Uncompressed)
+//** Public Key */
+
+//Pubic key (Uncompressed) 64 bytes number, (X,Y) funcation, larger than PK
+//04ee5635a7a27130a82438e516bccbe4d7bec545565f718f98e701192a755d581e345237ca7bf5079fa985edeb52a982bc8febd2a41cf9dd91160042041b07b016
+
+//Pubic key (Compressed) 32 bytes number (odd/even number for the y1/y2)
+//02ee5635a7a27130a82438e516bccbe4d7bec545565f718f98e701192a755d581e
