@@ -45,9 +45,11 @@ function App() {
           isProviderLoaded: true,
         });
       } else {
-        setWeb3API({
-          ...web3API,
-          isProviderLoaded: true,
+        setWeb3API((api) => {
+          return {
+            ...api,
+            isProviderLoaded: true,
+          };
         });
         console.error("Please, install Metamask!");
       }
@@ -120,7 +122,11 @@ function App() {
                   <>
                     <div className="notification is-warning is-size-6 ml-2">
                       Wallet is not detected!{` `}
-                      <a target="_blank" href="https://docs.metamask.io">
+                      <a
+                        target="_blank"
+                        rel="noreferrer"
+                        href="https://docs.metamask.io"
+                      >
                         Install MetaMask
                       </a>
                     </div>
