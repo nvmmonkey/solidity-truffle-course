@@ -45,12 +45,8 @@ function App() {
       const provider = await detectEthereumProvider();
 
       if (provider) {
-<<<<<<< HEAD
         const contract = await loadContract("Faucet", provider);
         setAccountListener(provider);
-=======
-        provider.request({ method: "eth_requestAccounts" });
->>>>>>> parent of 6d135a5 (connect wallet onClick)
         setWeb3API({
           web3: new Web3(provider),
           provider,
@@ -126,7 +122,6 @@ function App() {
     <>
       <div className="faucet-wrapper">
         <div className="faucet">
-<<<<<<< HEAD
           {web3API.isProviderLoaded ? (
             <div className="is-flex is-align-items-center">
               <strong>Account: </strong>
@@ -185,18 +180,6 @@ function App() {
           >
             Withdraw 0.1 ETH
           </button>
-=======
-          <span>
-            <strong>Account: </strong>
-            <h1>{account ? account : "Not Connected"}</h1>
-          </span>
-          <div className="balance-view is-size-2">
-            Current Balance: <strong>10</strong>ETH
-          </div>
-
-          <button className="btn mr-2">Donate</button>
-          <button className="btn">Withdraw</button>
->>>>>>> parent of 6d135a5 (connect wallet onClick)
         </div>
       </div>
     </>
@@ -220,5 +203,5 @@ export default App;
 //Pubic key (Uncompressed) 64 bytes number, (X,Y) funcation, larger than PK
 //04ee5635a7a27130a82438e516bccbe4d7bec545565f718f98e701192a755d581e345237ca7bf5079fa985edeb52a982bc8febd2a41cf9dd91160042041b07b016
 
-//Pubic key (Compressed) 32 bytes number (odd/even number for the y1/y2)
+//Pubic key (Compressed) 32 bytes number (odd/even number for the Private Key)
 //02ee5635a7a27130a82438e516bccbe4d7bec545565f718f98e701192a755d581e
