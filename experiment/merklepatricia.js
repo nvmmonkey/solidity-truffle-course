@@ -121,3 +121,17 @@ test();
 
 // keccak256(RLP hex) = hash
 // hash of the leaf node => 2fd2c9e2e74e9d07a920dd1ebf94f1bd7a5aa1764464769c83ce1cbb38137d65
+
+//** ----------------- */
+//** BRANCH NODE & RLP */
+//** ----------------- */
+
+// 51(hex) = length of the payload (dec) = 81bytes = 162 bits =  808080a02fd2c9e2e74e9d07a920dd1ebf94f1bd7a5aa1764464769c83ce1cbb38137d65a0b7f631fbd6cfb1aeb19411e75fc33769934c7ea2242a47b54ed6895e9627a0fc808080808080808080808080
+// => 51 808080a02fd2c9e2e74e9d07a920dd1ebf94f1bd7a5aa1764464769c83ce1cbb38137d65a0b7f631fbd6cfb1aeb19411e75fc33769934c7ea2242a47b54ed6895e9627a0fc808080808080808080808080
+
+//f7 + 1 if lengh of the payload (hex) < 1 bytes
+//f8 = 81 bytes = 10000001 binary fit in 1 byte
+// => RLP encoded = f8 51808080a02fd2c9e2e74e9d07a920dd1ebf94f1bd7a5aa1764464769c83ce1cbb38137d65a0b7f631fbd6cfb1aeb19411e75fc33769934c7ea2242a47b54ed6895e9627a0fc808080808080808080808080
+
+// keccak256(RLP)
+// => stateroot hash => 93267434a14288490332f997cb13123bb68609112edbd06f6e8c7c9798fd20c6
